@@ -1,23 +1,18 @@
 package br.com.schedule.convert.schedule;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import br.com.schedule.convert.recipient.ConvertRecipient;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ArgumentsSource;
+import br.com.schedule.ConstantsTests;
 import br.com.schedule.domain.model.entity.Recipient;
 import br.com.schedule.domain.model.entity.Schedule;
-import br.com.schedule.domain.model.entity.Status;
-import br.com.schedule.domain.model.entity.Type;
 import br.com.schedule.dto.ScheduleDataTransferObject;
+import br.com.schedule.providers.ScheduleDTOProviderForTests;
+import br.com.schedule.providers.ScheduleEntityProviderForTests;
 
-class ConvertScheduleTest {
-
-  private static final String RECIPIENT = "murilohenrique.ti@outlook.com.br";
-  private static final String MESSAGE = "VOCÊ PASSOU EM NOSSO PROCESSO SELETIVO, BEM VINDO!";
-  private static final LocalDateTime SEND_DATE = LocalDateTime.now().plusDays(7L);
-  private static final Status PENDING = Status.PENDING;
-  private static final Type EMAIL = Type.EMAIL;
+class ConvertScheduleTest implements ConstantsTests {
 
   private Recipient recipient;
 
@@ -26,9 +21,10 @@ class ConvertScheduleTest {
     recipient = createRecipientEntity();
   }
 
-  @Test
-  void convertDataTransferObjectToEntity() {
-    ScheduleDataTransferObject dto = createScheduleDataTransferObject(recipient);
+  @ParameterizedTest
+  @ArgumentsSource(ScheduleDTOProviderForTests.class)
+  @DisplayName("Deve converter Schedule DTO para uma Entidade Schedule")
+  void convertDataTransferObjectToEntity(ScheduleDataTransferObject dto) {
     Schedule schedule = ConvertSchedule.toEntity(dto, recipient);
 
     assertEquals(dto.getMessage(), schedule.getMessage());
@@ -38,10 +34,10 @@ class ConvertScheduleTest {
     assertEquals(dto.getType(), schedule.getType().name());
   }
 
-  @Test
-  void convertEntityToDataTransferObject() {
-    Schedule schedule = Schedule.newBuilder().message(MESSAGE).recipient(recipient)
-        .sendDate(SEND_DATE).status(PENDING).type(EMAIL).build();
+  @ParameterizedTest
+  @ArgumentsSource(ScheduleEntityProviderForTests.class)
+  @DisplayName("Deve converter Entidade Schedule para um ScheduleDTO")
+  void convertEntityToDataTransferObject(Schedule schedule) {
     ScheduleDataTransferObject dto = ConvertSchedule.toDataTransferObject(schedule);
 
     assertEquals(schedule.getMessage(), dto.getMessage());
@@ -49,13 +45,6 @@ class ConvertScheduleTest {
     assertEquals(schedule.getSendDate(), dto.getSendDate());
     assertEquals(schedule.getType().name(), dto.getType());
     assertEquals(schedule.getStatus().name(), dto.getStatus());
-  }
-
-  private ScheduleDataTransferObject createScheduleDataTransferObject(Recipient recipient) {
-    return ScheduleDataTransferObject.newBuilder().message(MESSAGE)
-        .recipient(ConvertRecipient.toDataTransferObject(recipient))
-        .sendDate(LocalDateTime.now().plusDays(7L)).status(PENDING.name()).type(EMAIL.name())
-        .build();
   }
 
   private Recipient createRecipientEntity() {
