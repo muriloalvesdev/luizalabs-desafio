@@ -14,30 +14,33 @@ import br.com.schedule.exception.TypeNotFoundException;
 @ControllerAdvice
 public class HandlerException extends ResponseEntityExceptionHandler {
 
+  private static final HttpStatus NOT_FOUND = HttpStatus.NOT_FOUND;
+  private static final HttpStatus BAD_REQUEST = HttpStatus.BAD_REQUEST;
+
   @ExceptionHandler(ScheduleNotFoundException.class)
   public ResponseEntity<ApiException> handleScheduleNotFoundException(
       ScheduleNotFoundException ex) {
-    return ResponseEntity.status(HttpStatus.NOT_FOUND)
-        .body(createResponse(ex.getMessage(), HttpStatus.NOT_FOUND.value()));
+    return ResponseEntity.status(NOT_FOUND)
+        .body(createResponse(ex.getMessage(), NOT_FOUND.value()));
   }
 
   @ExceptionHandler(TypeNotFoundException.class)
   public ResponseEntity<ApiException> handleTypeNotFoundException(TypeNotFoundException ex) {
-    return ResponseEntity.status(HttpStatus.NOT_FOUND)
-        .body(createResponse(ex.getMessage(), HttpStatus.NOT_FOUND.value()));
+    return ResponseEntity.status(NOT_FOUND)
+        .body(createResponse(ex.getMessage(), NOT_FOUND.value()));
   }
 
   @ExceptionHandler(InvalidArgumentException.class)
   public ResponseEntity<ApiException> handleInvalidArgumentException(InvalidArgumentException ex) {
-    return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-        .body(createResponse(ex.getMessage(), HttpStatus.BAD_REQUEST.value()));
+    return ResponseEntity.status(BAD_REQUEST)
+        .body(createResponse(ex.getMessage(), BAD_REQUEST.value()));
   }
 
   @ExceptionHandler(RecipientNotFoundException.class)
   public ResponseEntity<ApiException> handleRecipientNotFoundException(
       RecipientNotFoundException ex) {
-    return ResponseEntity.status(HttpStatus.NOT_FOUND)
-        .body(createResponse(ex.getMessage(), HttpStatus.NOT_FOUND.value()));
+    return ResponseEntity.status(NOT_FOUND)
+        .body(createResponse(ex.getMessage(), NOT_FOUND.value()));
   }
 
   private ApiException createResponse(String message, int status) {
