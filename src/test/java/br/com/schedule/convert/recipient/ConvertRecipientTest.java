@@ -1,11 +1,12 @@
 package br.com.schedule.convert.recipient;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
 import br.com.schedule.ConstantsTests;
-import br.com.schedule.convert.recipient.ConvertRecipient;
 import br.com.schedule.domain.model.entity.Recipient;
 import br.com.schedule.dto.RecipientDataTransferObject;
+import br.com.schedule.exception.RecipientInvalidException;
 
 class ConvertRecipientTest implements ConstantsTests {
 
@@ -23,6 +24,15 @@ class ConvertRecipientTest implements ConstantsTests {
     RecipientDataTransferObject dto = ConvertRecipient.toDataTransferObject(recipient);
 
     assertEquals(recipient.getRecipient(), dto.getRecipient());
+  }
+
+  @Test
+  void shouldReturnException() {
+    RecipientDataTransferObject dto =
+        RecipientDataTransferObject.newBuilder().recipient("anything").build();
+    assertThrows(RecipientInvalidException.class, () -> {
+      ConvertRecipient.toEntity(dto);
+    });
   }
 
   private RecipientDataTransferObject createRecipientDataTransferObject() {

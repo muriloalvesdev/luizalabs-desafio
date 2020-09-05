@@ -2,6 +2,7 @@ package br.com.schedule.dto;
 
 
 import java.time.LocalDateTime;
+import org.hibernate.validator.constraints.Length;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -31,6 +32,7 @@ public class ScheduleDataTransferObject {
   private String message;
 
   @NonNull
+  @Length(max = 8, min = 3)
   private String type;
 
   @JsonIgnore

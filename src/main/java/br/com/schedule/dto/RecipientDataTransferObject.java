@@ -1,5 +1,6 @@
 package br.com.schedule.dto;
 
+import org.hibernate.validator.constraints.Length;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,5 +15,6 @@ import lombok.Setter;
 @Builder(builderMethodName = "newBuilder")
 public class RecipientDataTransferObject {
   @NonNull
+  @Length(min = 15)
   private String recipient;
 }

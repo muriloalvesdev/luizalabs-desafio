@@ -36,7 +36,7 @@ public class ScheduleController {
   public ResponseEntity<Object> save(@Validated @RequestBody ScheduleDataTransferObject dto) {
     Schedule schedule = service.save(dto);
     return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentContextPath()
-        .path("/{status}").buildAndExpand(schedule.getStatus().name()).toUri()).build();
+        .path("/api/schedule/{status}").buildAndExpand(schedule.getStatus().name()).toUri()).build();
   }
 
   @DeleteMapping(path = "/{uuid}", produces = MediaType.APPLICATION_JSON_VALUE)

@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import br.com.schedule.convert.recipient.ConvertRecipient;
-import br.com.schedule.convert.schedule.ConvertSchedule;
 import br.com.schedule.domain.model.entity.Recipient;
 import br.com.schedule.domain.model.entity.Schedule;
 import br.com.schedule.domain.model.entity.Status;

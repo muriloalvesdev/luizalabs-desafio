@@ -7,9 +7,11 @@ import br.com.schedule.domain.model.entity.Status;
 import br.com.schedule.domain.model.entity.Type;
 import br.com.schedule.dto.RecipientDataTransferObject;
 import br.com.schedule.dto.ScheduleDataTransferObject;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class ConvertSchedule {
-  private ConvertSchedule() {}
 
   public static Schedule toEntity(ScheduleDataTransferObject dto, Recipient recipient) {
     return Schedule.newBuilder().message(dto.getMessage()).recipient(recipient)
