@@ -18,7 +18,7 @@ public enum Type {
 
   public static Type find(String fromString) {
     return Arrays.asList(Type.values()).stream()
-        .filter(type -> type.getPropertie().equals(fromString.toUpperCase().trim())).findFirst()
-        .orElseThrow(() -> new TypeNotFoundException("Type informed [" + fromString + "] found!"));
+        .filter(type -> type.getProperty().equals(fromString.toUpperCase().trim())).findFirst()
+        .orElseThrow(() -> new TypeNotFoundException(fromString));
   }
 }
