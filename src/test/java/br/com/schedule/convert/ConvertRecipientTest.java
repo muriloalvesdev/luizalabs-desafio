@@ -2,11 +2,11 @@ package br.com.schedule.convert;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
+import br.com.schedule.ConstantsTests;
 import br.com.schedule.domain.model.entity.Recipient;
 import br.com.schedule.dto.RecipientDataTransferObject;
 
-class ConvertRecipientTest {
-  private static final String RECIPIENT = "murilohenrique.ti@outlook.com.br";
+class ConvertRecipientTest implements ConstantsTests {
 
   @Test
   void shouldConvertDataTransferObjectToEntity() {
