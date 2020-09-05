@@ -1,16 +1,14 @@
 package br.com.schedule.service.schedule;
 
-import java.util.List;
-import java.util.UUID;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import br.com.schedule.domain.model.entity.Schedule;
 import br.com.schedule.dto.ScheduleDataTransferObject;
 
 public interface ScheduleService {
-
-  UUID save(ScheduleDataTransferObject dto);
-
-  ScheduleDataTransferObject find(String uuid);
-
-  List<ScheduleDataTransferObject> find();
+  Schedule save(ScheduleDataTransferObject dto);
 
   void delete(String uuid);
+
+  Page<ScheduleDataTransferObject> find(String status, Pageable pageable);
 }
