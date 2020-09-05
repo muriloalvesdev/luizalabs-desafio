@@ -32,13 +32,13 @@ class ScheduleServiceImplTest implements ConstantsTests {
 
   @BeforeEach
   void setUp() {
-    schedule = Schedule.newBuilder().build();
-    recipientDataTransferObject =
+    this.schedule = Schedule.newBuilder().build();
+    this.recipientDataTransferObject =
         RecipientDataTransferObject.newBuilder().recipient(RECIPIENT).build();
 
     this.scheduleDataTransferObject = ScheduleDataTransferObject.newBuilder().message(MESSAGE)
         .sendDate(SEND_DATE).sendDate(LocalDateTime.now().plusDays(7L)).status(PENDING.name())
-        .type(EMAIL.name()).recipient(recipientDataTransferObject).build();
+        .type(EMAIL.name()).recipient(this.recipientDataTransferObject).build();
 
     this.repository = Mockito.spy(ScheduleRepository.class);
     this.recipientService = Mockito.spy(RecipientService.class);
@@ -53,7 +53,7 @@ class ScheduleServiceImplTest implements ConstantsTests {
     BDDMockito.given(this.repository.saveAndFlush(any(Schedule.class))).willReturn(schedule);
     BDDMockito.given(this.recipientService.save(recipientDataTransferObject)).willReturn(recipient);
 
-    service.save(scheduleDataTransferObject);
+    this.service.save(this.scheduleDataTransferObject);
 
     verify(this.recipientService, times(1)).save(any(RecipientDataTransferObject.class));
     verify(this.repository, times(1)).saveAndFlush(any(Schedule.class));
