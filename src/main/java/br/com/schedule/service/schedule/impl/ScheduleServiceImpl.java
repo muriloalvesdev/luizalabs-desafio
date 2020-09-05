@@ -5,7 +5,7 @@ import javax.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import br.com.schedule.convert.ConvertSchedule;
+import br.com.schedule.convert.schedule.ConvertSchedule;
 import br.com.schedule.domain.model.entity.Recipient;
 import br.com.schedule.domain.model.entity.Schedule;
 import br.com.schedule.domain.model.entity.Status;

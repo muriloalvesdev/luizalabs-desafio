@@ -1,4 +1,4 @@
-package br.com.schedule.convert;
+package br.com.schedule.convert.recipient;
 
 import br.com.schedule.domain.model.entity.Recipient;
 import br.com.schedule.dto.RecipientDataTransferObject;

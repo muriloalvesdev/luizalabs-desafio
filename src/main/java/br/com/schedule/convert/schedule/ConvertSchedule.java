@@ -1,5 +1,6 @@
-package br.com.schedule.convert;
+package br.com.schedule.convert.schedule;
 
+import br.com.schedule.convert.recipient.ConvertRecipient;
 import br.com.schedule.domain.model.entity.Recipient;
 import br.com.schedule.domain.model.entity.Schedule;
 import br.com.schedule.domain.model.entity.Status;

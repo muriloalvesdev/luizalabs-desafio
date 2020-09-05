@@ -1,8 +1,9 @@
-package br.com.schedule.convert;
+package br.com.schedule.convert.recipient;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 import br.com.schedule.ConstantsTests;
+import br.com.schedule.convert.recipient.ConvertRecipient;
 import br.com.schedule.domain.model.entity.Recipient;
 import br.com.schedule.dto.RecipientDataTransferObject;
 
