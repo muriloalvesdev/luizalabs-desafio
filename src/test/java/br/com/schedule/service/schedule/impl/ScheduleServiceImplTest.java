@@ -7,7 +7,9 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ArgumentsSource;
 import org.mockito.BDDMockito;
 import org.mockito.Mockito;
 import br.com.schedule.ConstantsTests;
@@ -16,6 +18,7 @@ import br.com.schedule.domain.model.entity.Schedule;
 import br.com.schedule.domain.repository.ScheduleRepository;
 import br.com.schedule.dto.RecipientDataTransferObject;
 import br.com.schedule.dto.ScheduleDataTransferObject;
+import br.com.schedule.providers.ScheduleEntityProviderForTests;
 import br.com.schedule.service.recipient.RecipientService;
 
 class ScheduleServiceImplTest implements ConstantsTests {
@@ -28,11 +31,8 @@ class ScheduleServiceImplTest implements ConstantsTests {
   private ScheduleDataTransferObject scheduleDataTransferObject;
   private RecipientDataTransferObject recipientDataTransferObject;
 
-  private Schedule schedule;
-
   @BeforeEach
   void setUp() {
-    this.schedule = Schedule.newBuilder().build();
     this.recipientDataTransferObject =
         RecipientDataTransferObject.newBuilder().recipient(RECIPIENT).build();
 
@@ -46,8 +46,10 @@ class ScheduleServiceImplTest implements ConstantsTests {
     this.service = new ScheduleServiceImpl(this.repository, this.recipientService);
   }
 
-  @Test
-  void shouldSaveSchedule() {
+  @ParameterizedTest
+  @ArgumentsSource(ScheduleEntityProviderForTests.class)
+  @DisplayName("Deve testar o comportamento do método save() do Serviço")
+  void shouldSaveSchedule(Schedule schedule) {
     Recipient recipient = Recipient.newBuilder().build();
 
     BDDMockito.given(this.repository.saveAndFlush(any(Schedule.class))).willReturn(schedule);
@@ -59,12 +61,14 @@ class ScheduleServiceImplTest implements ConstantsTests {
     verify(this.repository, times(1)).saveAndFlush(any(Schedule.class));
   }
 
-  @Test
-  void shouldDeleteLogicallySchedule() {
+  @ParameterizedTest
+  @ArgumentsSource(ScheduleEntityProviderForTests.class)
+  @DisplayName("Deve testar o comportamento do método delete() do Serviço")
+  void shouldDeleteLogicallySchedule(Schedule schedule) {
     UUID uuid = UUID.randomUUID();
     BDDMockito.given(this.repository.findByUuidAndStatus(uuid, PENDING))
-        .willReturn(Optional.of(this.schedule));
-    BDDMockito.given(this.repository.save(any(Schedule.class))).willReturn(this.schedule);
+        .willReturn(Optional.of(schedule));
+    BDDMockito.given(this.repository.save(any(Schedule.class))).willReturn(schedule);
 
     this.service.delete(uuid.toString());
 
