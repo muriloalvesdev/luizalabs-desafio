@@ -7,11 +7,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.BDDMockito;
 import org.mockito.Mockito;
+import br.com.schedule.ConstantsTests;
 import br.com.schedule.domain.model.entity.Recipient;
 import br.com.schedule.domain.repository.RecipientRepository;
 import br.com.schedule.dto.RecipientDataTransferObject;
 
-class RecipientServiceImplTest {
+class RecipientServiceImplTest implements ConstantsTests {
 
   private RecipientRepository repository;
   private RecipientServiceImpl service;
@@ -20,9 +21,9 @@ class RecipientServiceImplTest {
 
   @BeforeEach
   void setUp() {
-    this.dto = RecipientDataTransferObject.newBuilder().recipient("testando").build();
+    this.dto = RecipientDataTransferObject.newBuilder().recipient(RECIPIENT).build();
     this.repository = Mockito.spy(RecipientRepository.class);
-    this.recipient = Recipient.newBuilder().recipient("testando").build();
+    this.recipient = Recipient.newBuilder().recipient(RECIPIENT).build();
     this.service = new RecipientServiceImpl(repository);
   }
 
