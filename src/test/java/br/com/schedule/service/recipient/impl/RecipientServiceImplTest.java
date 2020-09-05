@@ -28,9 +28,9 @@ class RecipientServiceImplTest {
 
   @Test
   void shouldSaveRecipient() {
-    BDDMockito.given(this.repository.save(recipient)).willReturn(recipient);
+    BDDMockito.given(this.repository.save(this.recipient)).willReturn(this.recipient);
 
-    this.service.save(dto);
+    this.service.save(this.dto);
 
     verify(this.repository, times(1)).save(any(Recipient.class));
   }
