@@ -12,7 +12,7 @@ import br.com.schedule.domain.model.entity.Status;
 import br.com.schedule.domain.repository.ScheduleRepository;
 import br.com.schedule.dto.ScheduleDataTransferObject;
 import br.com.schedule.exception.ScheduleNotFoundException;
-import br.com.schedule.service.recipient.impl.RecipientServiceImpl;
+import br.com.schedule.service.recipient.RecipientService;
 import br.com.schedule.service.schedule.ScheduleService;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -22,7 +22,7 @@ import lombok.AllArgsConstructor;
 public class ScheduleServiceImpl implements ScheduleService {
 
   final ScheduleRepository repository;
-  final RecipientServiceImpl recipientService;
+  final RecipientService recipientService;
 
   @Transactional
   @Override
