@@ -2,6 +2,7 @@ package br.com.schedule.convert;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.time.LocalDateTime;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import br.com.schedule.domain.model.entity.Recipient;
 import br.com.schedule.domain.model.entity.Schedule;
@@ -9,7 +10,7 @@ import br.com.schedule.domain.model.entity.Status;
 import br.com.schedule.domain.model.entity.Type;
 import br.com.schedule.dto.ScheduleDataTransferObject;
 
-public class ConvertScheduleTest {
+class ConvertScheduleTest {
 
   private static final String RECIPIENT = "murilohenrique.ti@outlook.com.br";
   private static final String MESSAGE = "VOCÊ PASSOU EM NOSSO PROCESSO SELETIVO, BEM VINDO!";
@@ -17,10 +18,15 @@ public class ConvertScheduleTest {
   private static final Status PENDING = Status.PENDING;
   private static final Type EMAIL = Type.EMAIL;
 
+  private Recipient recipient;
+
+  @BeforeEach
+  void setUp() {
+    recipient = createRecipientEntity();
+  }
+
   @Test
   void convertDataTransferObjectToEntity() {
-    Recipient recipient = createRecipientEntity();
-
     ScheduleDataTransferObject dto = createScheduleDataTransferObject(recipient);
     Schedule schedule = ConvertSchedule.toEntity(dto, recipient);
 
@@ -33,8 +39,6 @@ public class ConvertScheduleTest {
 
   @Test
   void convertEntityToDataTransferObject() {
-    Recipient recipient = createRecipientEntity();
-
     Schedule schedule = Schedule.newBuilder().message(MESSAGE).recipient(recipient)
         .sendDate(SEND_DATE).status(PENDING).type(EMAIL).build();
     ScheduleDataTransferObject dto = ConvertSchedule.toDataTransferObject(schedule);
