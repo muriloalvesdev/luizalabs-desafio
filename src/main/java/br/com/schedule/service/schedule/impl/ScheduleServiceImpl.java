@@ -1,9 +1,9 @@
 package br.com.schedule.service.schedule.impl;
 
-import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 import javax.transaction.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import br.com.schedule.convert.ConvertSchedule;
 import br.com.schedule.domain.model.entity.Recipient;
@@ -12,7 +12,7 @@ import br.com.schedule.domain.model.entity.Status;
 import br.com.schedule.domain.repository.ScheduleRepository;
 import br.com.schedule.dto.ScheduleDataTransferObject;
 import br.com.schedule.exception.ScheduleNotFoundException;
-import br.com.schedule.service.recipient.RecipientService;
+import br.com.schedule.service.recipient.impl.RecipientServiceImpl;
 import br.com.schedule.service.schedule.ScheduleService;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -22,35 +22,27 @@ import lombok.AllArgsConstructor;
 public class ScheduleServiceImpl implements ScheduleService {
 
   final ScheduleRepository repository;
-  final RecipientService recipientService;
+  final RecipientServiceImpl recipientService;
 
   @Transactional
   @Override
-  public UUID save(ScheduleDataTransferObject dto) {
+  public Schedule save(ScheduleDataTransferObject dto) {
     Recipient recipient = recipientService.save(dto.getRecipient());
     Schedule schedule = ConvertSchedule.toEntity(dto, recipient);
-    return repository.saveAndFlush(schedule).getUuid();
-  }
-
-  @Override
-  public ScheduleDataTransferObject find(String uuid) {
-    return repository.findById(UUID.fromString(uuid)).map(ConvertSchedule::toDataTransferObject)
-        .orElseThrow(() -> new ScheduleNotFoundException(uuid));
-  }
-
-  @Override
-  public List<ScheduleDataTransferObject> find() {
-    return repository.findAll().stream().map(ConvertSchedule::toDataTransferObject)
-        .collect(Collectors.toList());
+    return repository.saveAndFlush(schedule);
   }
 
   @Override
   public void delete(String uuid) {
-    Schedule schedule = repository.findById(UUID.fromString(uuid))
+    Schedule schedule = repository.findByUuidAndStatus(UUID.fromString(uuid), Status.PENDING)
         .orElseThrow(() -> new ScheduleNotFoundException(uuid));
-    schedule.setStatus(Status.CANCELLED);
+    schedule.setStatus(Status.DELETED);
     repository.save(schedule);
   }
 
-
+  @Override
+  public Page<ScheduleDataTransferObject> find(String status, Pageable pageable) {
+    return repository.findByStatus(Status.find(status), pageable)
+        .map(ConvertSchedule::toDataTransferObject);
+  }
 }
