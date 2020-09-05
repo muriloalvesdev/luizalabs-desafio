@@ -28,7 +28,7 @@ class ScheduleServiceImplTest implements ConstantsTests {
   private ScheduleDataTransferObject scheduleDataTransferObject;
   private RecipientDataTransferObject recipientDataTransferObject;
 
-  Schedule schedule;
+  private Schedule schedule;
 
   @BeforeEach
   void setUp() {
