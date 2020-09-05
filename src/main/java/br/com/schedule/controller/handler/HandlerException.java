@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import br.com.schedule.domain.model.handler.ApiException;
+import br.com.schedule.exception.InvalidArgumentException;
 import br.com.schedule.exception.RecipientNotFoundException;
 import br.com.schedule.exception.ScheduleNotFoundException;
 import br.com.schedule.exception.TypeNotFoundException;
@@ -24,6 +25,12 @@ public class HandlerException extends ResponseEntityExceptionHandler {
   public ResponseEntity<ApiException> handleTypeNotFoundException(TypeNotFoundException ex) {
     return ResponseEntity.status(HttpStatus.NOT_FOUND)
         .body(createResponse(ex.getMessage(), HttpStatus.NOT_FOUND.value()));
+  }
+
+  @ExceptionHandler(InvalidArgumentException.class)
+  public ResponseEntity<ApiException> handleInvalidArgumentException(InvalidArgumentException ex) {
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+        .body(createResponse(ex.getMessage(), HttpStatus.BAD_REQUEST.value()));
   }
 
   @ExceptionHandler(RecipientNotFoundException.class)
