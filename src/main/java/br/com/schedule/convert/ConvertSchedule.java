@@ -1,6 +1,5 @@
 package br.com.schedule.convert;
 
-import java.time.LocalDateTime;
 import br.com.schedule.domain.model.entity.Recipient;
 import br.com.schedule.domain.model.entity.Schedule;
 import br.com.schedule.domain.model.entity.Status;
@@ -13,8 +12,7 @@ public final class ConvertSchedule {
 
   public static Schedule toEntity(ScheduleDataTransferObject dto, Recipient recipient) {
     return Schedule.newBuilder().message(dto.getMessage()).recipient(recipient)
-        .sendDate(LocalDateTime.parse(dto.getSendDate())).status(Status.PENDING)
-        .type(Type.find(dto.getType())).build();
+        .sendDate(dto.getSendDate()).status(Status.PENDING).type(Type.find(dto.getType())).build();
   }
 
   public static ScheduleDataTransferObject toDataTransferObject(Schedule schedule) {
@@ -22,7 +20,7 @@ public final class ConvertSchedule {
         ConvertRecipient.toDataTransferObject(schedule.getRecipient());
 
     return ScheduleDataTransferObject.newBuilder().message(schedule.getMessage())
-        .recipient(recipientDataTransferObject).sendDate(String.valueOf(schedule.getSendDate()))
+        .recipient(recipientDataTransferObject).sendDate(schedule.getSendDate())
         .status(schedule.getStatus().name()).type(schedule.getType().name()).build();
   }
 
