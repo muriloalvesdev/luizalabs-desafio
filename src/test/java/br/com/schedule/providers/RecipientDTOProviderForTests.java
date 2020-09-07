@@ -7,11 +7,12 @@ import org.junit.jupiter.params.provider.ArgumentsProvider;
 import br.com.schedule.ConstantsTests;
 import br.com.schedule.dto.RecipientDataTransferObject;
 
-public class RecipientDTOProviderForTests implements ArgumentsProvider, ConstantsTests {
+public class RecipientDTOProviderForTests implements ArgumentsProvider {
 
   @Override
   public Stream<? extends Arguments> provideArguments(ExtensionContext context) throws Exception {
-    return Stream.of(RecipientDataTransferObject.newBuilder().recipient(RECIPIENT).build())
+    return Stream
+        .of(RecipientDataTransferObject.newBuilder().recipient(ConstantsTests.RECIPIENT).build())
         .map(Arguments::of);
   }
 
