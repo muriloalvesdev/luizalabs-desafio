@@ -2,6 +2,7 @@ package br.com.schedule.convert.recipient;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -35,10 +36,12 @@ class ConvertRecipientTest implements ConstantsTests {
   @DisplayName("Deve retornar exception informando que o Recipient é inválido por não ter um formato do tipo email ou telefone celular")
   @Test
   void shouldReturnException() {
-    RecipientDataTransferObject dto =
+    RecipientDataTransferObject dtoInvalid =
         RecipientDataTransferObject.newBuilder().recipient("anything").build();
-    assertThrows(RecipientInvalidException.class, () -> {
-      ConvertRecipient.toEntity(dto);
+    Exception exception = assertThrows(RecipientInvalidException.class, () -> {
+      ConvertRecipient.toEntity(dtoInvalid);
     });
+
+    assertTrue(exception instanceof RecipientInvalidException);
   }
 }
