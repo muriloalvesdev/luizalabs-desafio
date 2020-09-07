@@ -15,7 +15,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -26,7 +25,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "schedule", uniqueConstraints = {@UniqueConstraint(columnNames = {"recipient_uuid"})})
+@Table(name = "schedule")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Schedule extends BaseEntity {
