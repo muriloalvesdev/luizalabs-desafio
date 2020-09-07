@@ -1,6 +1,7 @@
 package br.com.schedule.dto;
 
 import org.hibernate.validator.constraints.Length;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -10,8 +11,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder(builderMethodName = "newBuilder")
 public class RecipientDataTransferObject {
   @NonNull

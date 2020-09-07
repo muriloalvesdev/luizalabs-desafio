@@ -11,7 +11,7 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
 @Service
-public class RecipientServiceImpl implements RecipientService {
+class RecipientServiceImpl implements RecipientService {
 
   final RecipientRepository repository;
 

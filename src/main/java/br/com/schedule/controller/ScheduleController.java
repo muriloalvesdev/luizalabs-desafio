@@ -20,7 +20,7 @@ import br.com.schedule.service.schedule.ScheduleService;
 
 @RequestMapping("api/schedule")
 @RestController
-public class ScheduleController {
+class ScheduleController {
 
   @Autowired
   private ScheduleService service;

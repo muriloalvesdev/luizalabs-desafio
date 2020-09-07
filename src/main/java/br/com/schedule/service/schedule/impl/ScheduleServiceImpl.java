@@ -19,7 +19,7 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
 @Service
-public class ScheduleServiceImpl implements ScheduleService {
+class ScheduleServiceImpl implements ScheduleService {
 
   final ScheduleRepository repository;
   final RecipientService recipientService;
