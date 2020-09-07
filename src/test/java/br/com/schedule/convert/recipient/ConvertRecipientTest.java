@@ -41,7 +41,7 @@ class ConvertRecipientTest implements ConstantsTests {
     Exception exception = assertThrows(RecipientInvalidException.class, () -> {
       ConvertRecipient.toEntity(dtoInvalid);
     });
-
+    assertTrue(exception.getMessage().equals("Recipient [anything] has space or/and is invalid!"));
     assertTrue(exception instanceof RecipientInvalidException);
   }
 }
