@@ -35,7 +35,7 @@ class ScheduleServiceImplTest implements ConstantsTests {
   @BeforeEach
   void setUp() {
     this.recipientDataTransferObject =
-        RecipientDataTransferObject.newBuilder().recipient(RECIPIENT).build();
+        RecipientDataTransferObject.newBuilder().recipient(RECIPIENT_EMAIL).build();
 
     this.scheduleDataTransferObject = ScheduleDataTransferObject.newBuilder().message(MESSAGE)
         .sendDate(SEND_DATE).sendDate(LocalDateTime.now().plusDays(7L)).status(PENDING.name())

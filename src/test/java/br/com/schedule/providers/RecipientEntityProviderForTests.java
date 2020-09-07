@@ -11,7 +11,7 @@ public class RecipientEntityProviderForTests implements ArgumentsProvider {
 
   @Override
   public Stream<? extends Arguments> provideArguments(ExtensionContext context) throws Exception {
-    return Stream.of(Recipient.newBuilder().recipient(ConstantsTests.RECIPIENT).build())
+    return Stream.of(Recipient.newBuilder().recipient(ConstantsTests.RECIPIENT_EMAIL).build())
         .map(Arguments::of);
   }
 

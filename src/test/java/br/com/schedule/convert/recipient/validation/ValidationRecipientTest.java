@@ -18,8 +18,8 @@ class ValidationRecipientTest {
   @DisplayName("Deve enviar o email e o telefone para validação e retornar 'true', pois ambos são válidos")
   @Test
   void shouldValidate() {
-    boolean emailValidated = ValidationRecipient.isValid(EMAIL_VALID);
-    boolean phoneValidated = ValidationRecipient.isValid(PHONE_VALID);
+    boolean emailValidated = ValidationRecipient.isEmail(EMAIL_VALID);
+    boolean phoneValidated = ValidationRecipient.isPhone(PHONE_VALID);
 
     assertTrue(emailValidated);
     assertTrue(phoneValidated);
@@ -28,8 +28,8 @@ class ValidationRecipientTest {
   @DisplayName("Deve enviar o email e o telefone para validação e retornar 'false', pois ambos estão inválidos")
   @Test
   void shouldReturnInvalid() {
-    boolean emailValidated = ValidationRecipient.isValid(EMAIL_NOT_VALID);
-    boolean phoneValidated = ValidationRecipient.isValid(PHONE_NOT_VALID);
+    boolean emailValidated = ValidationRecipient.isEmail(EMAIL_NOT_VALID);
+    boolean phoneValidated = ValidationRecipient.isPhone(PHONE_NOT_VALID);
 
     assertFalse(emailValidated);
     assertFalse(phoneValidated);

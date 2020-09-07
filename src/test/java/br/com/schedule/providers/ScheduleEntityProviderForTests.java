@@ -13,7 +13,7 @@ public class ScheduleEntityProviderForTests implements ArgumentsProvider, Consta
   @Override
   public Stream<? extends Arguments> provideArguments(ExtensionContext context) throws Exception {
     return Stream.of(Schedule.newBuilder().message(MESSAGE)
-        .recipient(Recipient.newBuilder().recipient(RECIPIENT).build()).sendDate(SEND_DATE)
+        .recipient(Recipient.newBuilder().recipient(RECIPIENT_EMAIL).build()).sendDate(SEND_DATE)
         .status(PENDING).type(EMAIL).build()).map(Arguments::of);
   }
 

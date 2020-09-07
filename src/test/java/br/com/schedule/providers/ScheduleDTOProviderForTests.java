@@ -14,7 +14,7 @@ public class ScheduleDTOProviderForTests implements ArgumentsProvider, Constants
   @Override
   public Stream<? extends Arguments> provideArguments(ExtensionContext context) throws Exception {
     return Stream.of(ScheduleDataTransferObject.newBuilder().message(MESSAGE)
-        .recipient(RecipientDataTransferObject.newBuilder().recipient(RECIPIENT).build())
+        .recipient(RecipientDataTransferObject.newBuilder().recipient(RECIPIENT_EMAIL).build())
         .sendDate(LocalDateTime.now().plusDays(7L)).status(PENDING.name()).type(EMAIL.name())
         .build()).map(Arguments::of);
   }

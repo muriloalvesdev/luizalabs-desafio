@@ -11,10 +11,14 @@ public final class ValidationRecipient {
 
   private static final String REGEX_MATCHER_THIRTEEN_DIGITS_NUMBER = "\\d{2}-\\d{2}-\\d{9}";
 
-  public static boolean isValid(String recipient) {
+  public static boolean isPhone(String recipient) {
     Pattern pattern = Pattern.compile(REGEX_MATCHER_THIRTEEN_DIGITS_NUMBER);
     Matcher matcher = pattern.matcher(recipient);
-    return matcher.matches() || (EmailValidator.getInstance().isValid(recipient));
+    return matcher.matches();
+  }
+
+  public static boolean isEmail(String recipient) {
+    return EmailValidator.getInstance().isValid(recipient);
   }
 
 }
