@@ -1,5 +1,7 @@
 package br.com.schedule.service.schedule.impl;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -18,6 +20,7 @@ import br.com.schedule.domain.model.entity.Schedule;
 import br.com.schedule.domain.repository.ScheduleRepository;
 import br.com.schedule.dto.RecipientDataTransferObject;
 import br.com.schedule.dto.ScheduleDataTransferObject;
+import br.com.schedule.exception.ScheduleDateInvalidException;
 import br.com.schedule.providers.ScheduleEntityProviderForTests;
 import br.com.schedule.service.recipient.RecipientService;
 
@@ -75,6 +78,25 @@ class ScheduleServiceImplTest implements ConstantsTests {
 
     verify(repository, times(1)).findByUuidAndStatus(uuid, PENDING);
     verify(repository, times(1)).save(any(Schedule.class));
+  }
+
+  @ParameterizedTest
+  @ArgumentsSource(ScheduleEntityProviderForTests.class)
+  @DisplayName("Deve testar o comportamento do método save() quando um DTO contém uma data de agendamento invalida")
+  void shouldThrowExceptionWithSendDateInvalid(Schedule schedule) throws Exception {
+    Recipient recipient = Recipient.newBuilder().build();
+
+    BDDMockito.given(this.repository.saveAndFlush(any(Schedule.class))).willReturn(schedule);
+    BDDMockito.given(this.recipientService.save(recipientDataTransferObject)).willReturn(recipient);
+    scheduleDataTransferObject.setSendDate(LocalDateTime.now());
+    Thread.sleep(2000);
+    Exception exception = assertThrows(ScheduleDateInvalidException.class, () -> {
+      this.service.save(this.scheduleDataTransferObject);
+    });
+
+    assertTrue(exception instanceof ScheduleDateInvalidException);
+    assertTrue(exception.getMessage()
+        .equals("send_date [" + scheduleDataTransferObject.getSendDate() + "] is invalid"));
   }
 
 }
