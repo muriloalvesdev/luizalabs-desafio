@@ -1,7 +1,6 @@
 package br.com.schedule.convert.schedule;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ArgumentsSource;
@@ -15,17 +14,11 @@ import br.com.schedule.providers.ScheduleEntityProviderForTests;
 @DisplayName("Classe responsável por testar a classe de Conversão da Entidade Schedule")
 class ConvertScheduleTest implements ConstantsTests {
 
-  private Recipient recipient;
-
-  @BeforeEach
-  void setUp() {
-    recipient = createRecipientEntity();
-  }
-
   @ParameterizedTest
   @ArgumentsSource(ScheduleDTOProviderForTests.class)
   @DisplayName("Deve converter Schedule DTO para uma Entidade Schedule")
   void convertDataTransferObjectToEntity(ScheduleDataTransferObject dto) {
+    Recipient recipient = Recipient.newBuilder().recipient(RECIPIENT).build();
     Schedule schedule = ConvertSchedule.toEntity(dto, recipient);
 
     assertEquals(dto.getMessage(), schedule.getMessage());
@@ -46,9 +39,5 @@ class ConvertScheduleTest implements ConstantsTests {
     assertEquals(schedule.getSendDate(), dto.getSendDate());
     assertEquals(schedule.getType().name(), dto.getType());
     assertEquals(schedule.getStatus().name(), dto.getStatus());
-  }
-
-  private Recipient createRecipientEntity() {
-    return Recipient.newBuilder().recipient(RECIPIENT).build();
   }
 }
