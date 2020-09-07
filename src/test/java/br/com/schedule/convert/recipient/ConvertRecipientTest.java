@@ -13,6 +13,7 @@ import br.com.schedule.exception.RecipientInvalidException;
 import br.com.schedule.providers.RecipientDTOProviderForTests;
 import br.com.schedule.providers.RecipientEntityProviderForTests;
 
+@DisplayName("Classe responsável por testar a classe de Conversão da Entidade Recipient")
 class ConvertRecipientTest implements ConstantsTests {
 
   @ParameterizedTest

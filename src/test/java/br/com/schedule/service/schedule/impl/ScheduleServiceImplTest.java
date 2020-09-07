@@ -21,6 +21,7 @@ import br.com.schedule.dto.ScheduleDataTransferObject;
 import br.com.schedule.providers.ScheduleEntityProviderForTests;
 import br.com.schedule.service.recipient.RecipientService;
 
+@DisplayName("Classe responsável por testar o ScheduleServiceImpl")
 class ScheduleServiceImplTest implements ConstantsTests {
 
   private ScheduleRepository repository;
