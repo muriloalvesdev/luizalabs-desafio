@@ -12,6 +12,7 @@ import br.com.schedule.dto.ScheduleDataTransferObject;
 import br.com.schedule.providers.ScheduleDTOProviderForTests;
 import br.com.schedule.providers.ScheduleEntityProviderForTests;
 
+@DisplayName("Classe responsável por testar a classe de Conversão da Entidade Schedule")
 class ConvertScheduleTest implements ConstantsTests {
 
   private Recipient recipient;
