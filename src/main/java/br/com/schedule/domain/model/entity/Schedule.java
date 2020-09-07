@@ -16,14 +16,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Builder(builderMethodName = "newBuilder", access = AccessLevel.PUBLIC)
+@Builder(builderMethodName = "newBuilder")
 @Getter
 @Setter
 @Entity
