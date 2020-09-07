@@ -16,7 +16,7 @@ import br.com.schedule.dto.RecipientDataTransferObject;
 import br.com.schedule.providers.RecipientEntityProviderForTests;
 
 @DisplayName("Classe de teste para o Serviço RecipientServiceImpl")
-class RecipientServiceImplTest implements ConstantsTests {
+class RecipientServiceImplTest {
 
   private RecipientRepository repository;
   private RecipientServiceImpl service;
@@ -24,7 +24,7 @@ class RecipientServiceImplTest implements ConstantsTests {
 
   @BeforeEach
   void setUp() {
-    this.dto = RecipientDataTransferObject.newBuilder().recipient(RECIPIENT).build();
+    this.dto = RecipientDataTransferObject.newBuilder().recipient(ConstantsTests.RECIPIENT).build();
     this.repository = Mockito.spy(RecipientRepository.class);
     this.service = new RecipientServiceImpl(repository);
   }
