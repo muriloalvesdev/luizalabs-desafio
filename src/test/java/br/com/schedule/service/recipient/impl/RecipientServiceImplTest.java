@@ -3,6 +3,7 @@ package br.com.schedule.service.recipient.impl;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -24,7 +25,8 @@ class RecipientServiceImplTest {
 
   @BeforeEach
   void setUp() {
-    this.dto = RecipientDataTransferObject.newBuilder().recipient(ConstantsTests.RECIPIENT).build();
+    this.dto =
+        RecipientDataTransferObject.newBuilder().recipient(ConstantsTests.RECIPIENT_EMAIL).build();
     this.repository = Mockito.spy(RecipientRepository.class);
     this.service = new RecipientServiceImpl(repository);
   }
@@ -36,7 +38,18 @@ class RecipientServiceImplTest {
     BDDMockito.given(this.repository.save(recipient)).willReturn(recipient);
 
     this.service.save(this.dto);
-
     verify(this.repository, times(1)).save(any(Recipient.class));
+  }
+
+  @ParameterizedTest
+  @DisplayName("Deve testar o comportamento do metodo save(), MAS retornar um Recipient já existente.")
+  @ArgumentsSource(RecipientEntityProviderForTests.class)
+  void shouldReturnRecipientAlreadyExisting(Recipient recipient) {
+    BDDMockito.given(this.repository.findByRecipient(recipient.getRecipient()))
+        .willReturn(Optional.of(recipient));
+
+    this.service.save(this.dto);
+
+    verify(this.repository, times(1)).findByRecipient(recipient.getRecipient());
   }
 }
