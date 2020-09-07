@@ -12,7 +12,7 @@ public class RecipientDTOProviderForTests implements ArgumentsProvider {
   @Override
   public Stream<? extends Arguments> provideArguments(ExtensionContext context) throws Exception {
     return Stream
-        .of(RecipientDataTransferObject.newBuilder().recipient(ConstantsTests.RECIPIENT).build())
+        .of(RecipientDataTransferObject.newBuilder().recipient(ConstantsTests.RECIPIENT_EMAIL).build())
         .map(Arguments::of);
   }
 
