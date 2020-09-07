@@ -29,7 +29,7 @@ class RecipientServiceImplTest implements ConstantsTests {
     this.service = new RecipientServiceImpl(repository);
   }
 
-  @ParameterizedTest(name = "{index}: ({0} + {1}))")
+  @ParameterizedTest
   @DisplayName("Deve testar o comportamento do metodo save() do Serviço.")
   @ArgumentsSource(RecipientEntityProviderForTests.class)
   void shouldSaveRecipient(Recipient recipient) {
