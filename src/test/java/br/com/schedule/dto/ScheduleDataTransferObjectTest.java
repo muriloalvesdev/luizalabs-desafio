@@ -1,15 +1,13 @@
 package br.com.schedule.dto;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+@DisplayName("Classe responsável por validar atributo nulo do SchduleDTO")
 public class ScheduleDataTransferObjectTest {
 
-  /**
-   * Validar somente um atributo, existem outros com a mesma anotação @NonNull, mas acredito que
-   * validando apenas um atributo seria o sufiente para ESTE CASO.
-   */
-
+  @DisplayName("Validar atributo com a mesma anotação @NonNull.")
   @Test
   void shouldReturnException() {
     assertThrows(NullPointerException.class, () -> {
