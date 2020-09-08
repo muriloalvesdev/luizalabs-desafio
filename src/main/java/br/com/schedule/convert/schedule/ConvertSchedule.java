@@ -26,7 +26,7 @@ public final class ConvertSchedule {
         .sendDate(dto.getSendDate()).status(Status.PENDING);
 
     if (ValidationScheduleType.isEmail(dto.getRecipient().getRecipient())) {
-      builder.type(Type.EMAIL);
+      return builder.type(Type.EMAIL).build();
     }
 
     if (ValidationScheduleType.isPhone(dto.getRecipient().getRecipient())) {

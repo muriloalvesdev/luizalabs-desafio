@@ -91,4 +91,17 @@ class ConvertScheduleTest implements ConstantsTests {
 
     assertEquals(Type.WHATSAPP, schedule.getType());
   }
+
+  @ParameterizedTest
+  @ArgumentsSource(ScheduleDTOProviderForTests.class)
+  @DisplayName("Deve setar o tipo da Entidade Schedule como EMAIL, mesmo quando o DTO informar um tipo diferente")
+  void shouldSetTypeEmailInEntityScheduleEvenWhenDTOPassesDifferentType(
+      ScheduleDataTransferObject dto) {
+    dto.getRecipient().setRecipient(RECIPIENT_EMAIL);
+    dto.setType(Type.WHATSAPP.name());
+    Schedule schedule =
+        ConvertSchedule.toEntity(dto, Recipient.newBuilder().recipient(RECIPIENT_EMAIL).build());
+
+    assertEquals(Type.EMAIL, schedule.getType());
+  }
 }
