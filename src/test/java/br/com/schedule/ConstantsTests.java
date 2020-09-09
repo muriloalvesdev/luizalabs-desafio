@@ -12,4 +12,6 @@ public interface ConstantsTests {
   static final String MESSAGE = "VOCÊ PASSOU EM NOSSO PROCESSO SELETIVO, BEM VINDO!";
   static final Status PENDING = Status.PENDING;
   static final Type EMAIL = Type.EMAIL;
+
+  static final String PROFILE_TEST = "test";
 }

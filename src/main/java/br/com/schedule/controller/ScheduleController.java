@@ -25,21 +25,22 @@ class ScheduleController {
   @Autowired
   private ScheduleService service;
 
-  @GetMapping(path = "{status}", produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping(path = "{status}", consumes = MediaType.APPLICATION_JSON_VALUE,
+      produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Page<ScheduleDataTransferObject>> find(
       @PathVariable(name = "status") String status, Pageable pageable) {
     return ResponseEntity.ok(service.find(status, pageable));
   }
 
-  @PostMapping(path = "/", consumes = MediaType.APPLICATION_JSON_VALUE,
-      produces = MediaType.APPLICATION_JSON_VALUE)
+  @PostMapping(path = "/", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Object> save(@Validated @RequestBody ScheduleDataTransferObject dto) {
     Schedule schedule = service.save(dto);
     return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentContextPath()
-        .path("/api/schedule/{status}").buildAndExpand(schedule.getStatus().name()).toUri()).build();
+        .path("/api/schedule/{status}").buildAndExpand(schedule.getStatus().name()).toUri())
+        .body(schedule.getUuid());
   }
 
-  @DeleteMapping(path = "/{uuid}", produces = MediaType.APPLICATION_JSON_VALUE)
+  @DeleteMapping(path = "/{uuid}")
   public ResponseEntity<Object> delete(@PathVariable(name = "uuid") String uuid) {
     service.delete(uuid);
     return ResponseEntity.noContent().build();
