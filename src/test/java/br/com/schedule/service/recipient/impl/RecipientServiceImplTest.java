@@ -15,12 +15,13 @@ import br.com.schedule.domain.model.entity.Recipient;
 import br.com.schedule.domain.repository.RecipientRepository;
 import br.com.schedule.dto.RecipientDataTransferObject;
 import br.com.schedule.providers.RecipientEntityProviderForTests;
+import br.com.schedule.service.recipient.RecipientService;
 
 @DisplayName("Classe de teste para o Serviço RecipientServiceImpl")
 class RecipientServiceImplTest {
 
   private RecipientRepository repository;
-  private RecipientServiceImpl service;
+  private RecipientService service;
   private RecipientDataTransferObject dto;
 
   @BeforeEach

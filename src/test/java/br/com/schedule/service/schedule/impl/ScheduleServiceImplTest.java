@@ -23,13 +23,14 @@ import br.com.schedule.dto.ScheduleDataTransferObject;
 import br.com.schedule.exception.ScheduleDateInvalidException;
 import br.com.schedule.providers.ScheduleEntityProviderForTests;
 import br.com.schedule.service.recipient.RecipientService;
+import br.com.schedule.service.schedule.ScheduleService;
 
 @DisplayName("Classe responsável por testar o ScheduleServiceImpl")
 class ScheduleServiceImplTest implements ConstantsTests {
 
   private ScheduleRepository repository;
 
-  private ScheduleServiceImpl service;
+  private ScheduleService service;
   private RecipientService recipientService;
 
   private ScheduleDataTransferObject scheduleDataTransferObject;
