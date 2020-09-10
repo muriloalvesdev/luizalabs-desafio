@@ -2,7 +2,6 @@ package br.com.schedule.controller;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -23,7 +22,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import br.com.schedule.ConstantsTests;
 import br.com.schedule.domain.model.entity.Schedule;
-import br.com.schedule.domain.model.entity.Status;
 import br.com.schedule.domain.repository.ScheduleRepository;
 
 @DisplayName("Classe responsável por efetuar um teste de integração")
@@ -92,8 +90,14 @@ class ScheduleControllerIntegrationTests {
         .perform(delete("/api/schedule/" + uuid).contentType(MediaType.APPLICATION_JSON_VALUE))
         .andExpect(status().isNoContent());
 
-    Schedule scheduleDeleted = scheduleRepository.findAll().get(0);
-    assertNotNull(scheduleDeleted);
-    assertTrue(scheduleDeleted.getStatus().equals(Status.DELETED));
+    mockMvc.perform(get("/api/schedule/deleted").contentType(MediaType.APPLICATION_JSON_VALUE))
+        .andExpect(jsonPath("$.content[0].recipient.recipient", is("muriloalvesdev.ti@gmail.com")))
+        .andExpect(
+            jsonPath("$.content[0].message", is("VOCÊ FOI APROVADO EM NOSSO PROCESSO SELETIVO!")))
+        .andExpect(jsonPath("$.content[0].type", is("EMAIL")))
+        .andExpect(jsonPath("$.content[0].status", is("DELETED")))
+        .andExpect(jsonPath("$.content[0].send_date", is("2020-11-01 23:59:59")))
+        .andExpect(status().isOk());
   }
+
 }
