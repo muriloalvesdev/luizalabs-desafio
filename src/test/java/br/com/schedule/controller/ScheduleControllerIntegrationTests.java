@@ -22,6 +22,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import br.com.schedule.ConstantsTests;
 import br.com.schedule.domain.model.entity.Schedule;
+import br.com.schedule.domain.repository.RecipientRepository;
 import br.com.schedule.domain.repository.ScheduleRepository;
 
 @DisplayName("Classe responsável por efetuar um teste de integração")
@@ -35,6 +36,9 @@ class ScheduleControllerIntegrationTests {
 
   @Autowired
   private ScheduleRepository scheduleRepository;
+
+  @Autowired
+  private RecipientRepository recipientRepository;
 
   private MockMvc mockMvc;
 
@@ -98,6 +102,9 @@ class ScheduleControllerIntegrationTests {
         .andExpect(jsonPath("$.content[0].status", is("DELETED")))
         .andExpect(jsonPath("$.content[0].send_date", is("2020-11-01 23:59:59")))
         .andExpect(status().isOk());
+
+    scheduleRepository.deleteAll();
+    recipientRepository.deleteAll();
   }
 
 }
