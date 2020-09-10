@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>br.com.schedule</groupId>
 	<artifactId>schedule</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>schedule</name>
 	<description>Demo project for Spring Boot</description>
 
@@ -20,6 +20,11 @@
 	</properties>
 
 	<dependencies>
+		<dependency>
+			<groupId>com.spotify</groupId>
+			<artifactId>docker-maven-plugin</artifactId>
+			<version>1.2.2</version>
+		</dependency>
 		<dependency>
 			<artifactId>springfox-swagger2</artifactId>
 			<groupId>io.springfox</groupId>
@@ -81,5 +86,21 @@
 			</plugin>
 		</plugins>
 	</build>
-
+	<profiles>
+		<profile>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<id>dev</id>
+			<properties>
+				<schedule.profile>dev</schedule.profile>
+			</properties>
+		</profile>
+		<profile>
+			<id>prod</id>
+			<properties>
+				<schedule.profile>prod</schedule.profile>
+			</properties>
+		</profile>
+	</profiles>
 </project>
