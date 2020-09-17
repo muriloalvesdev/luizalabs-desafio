@@ -90,9 +90,3 @@ E no body: `"23ba1ab7-6384-48c6-b6e4-4947ce5f749b"`
 - Buscar solicitações de agendamento por status - Utilizando o verbo GET - http://localhost:8080/api/schedule/{status} - Status disponíveis para consulta são `PENDING, DELETED, SENT` . A busca por status está paginada com o [Pageable do próprio Spring](https://docs.spring.io/spring-data/commons/docs/current/api/org/springframework/data/domain/Pageable.html).
 
 - Deletar uma solicitação de agendamento por `UUID` - Utilizando o verbo DELETE - http://localhost:8080/api/schedule/{uuid} - O `UUID` é devolvido após realizar a solicitação de agendamento.
-
- 
-## Heroku
-Caso você queira somente realizar requisições na aplicação, o projeto também está no Heroku.
-`A URL Base é: http://luizalabs-desafio.herokuapp.com/ `
-- Utilize a URL BASE e você só precisa passar os parâmetros ou o body para enviar uma solicitação de agendamento.
