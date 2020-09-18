@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,8 +23,8 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "recipient", uniqueConstraints = {@UniqueConstraint(columnNames = {"recipient"})})
-@AllArgsConstructor
-@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Recipient extends BaseEntity {
 
   private static final long serialVersionUID = -2674827418854848988L;
