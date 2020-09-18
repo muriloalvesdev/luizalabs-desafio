@@ -5,7 +5,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ArgumentsSource;
 import org.mockito.BDDMockito;
@@ -17,7 +16,6 @@ import br.com.schedule.dto.RecipientDataTransferObject;
 import br.com.schedule.providers.RecipientEntityProviderForTests;
 import br.com.schedule.service.recipient.RecipientService;
 
-@DisplayName("Classe de teste para o Serviço RecipientServiceImpl")
 class RecipientServiceImplTest {
 
   private RecipientRepository repository;
@@ -33,7 +31,6 @@ class RecipientServiceImplTest {
   }
 
   @ParameterizedTest
-  @DisplayName("Deve testar o comportamento do metodo save() do Serviço.")
   @ArgumentsSource(RecipientEntityProviderForTests.class)
   void shouldSaveRecipient(Recipient recipient) {
     BDDMockito.given(this.repository.save(recipient)).willReturn(recipient);
@@ -43,7 +40,6 @@ class RecipientServiceImplTest {
   }
 
   @ParameterizedTest
-  @DisplayName("Deve testar o comportamento do metodo save(), MAS retornar um Recipient já existente.")
   @ArgumentsSource(RecipientEntityProviderForTests.class)
   void shouldReturnRecipientAlreadyExisting(Recipient recipient) {
     BDDMockito.given(this.repository.findByRecipient(recipient.getRecipient()))

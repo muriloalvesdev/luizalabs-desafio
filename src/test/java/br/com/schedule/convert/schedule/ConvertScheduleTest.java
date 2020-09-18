@@ -15,12 +15,10 @@ import br.com.schedule.exception.RecipientInvalidException;
 import br.com.schedule.providers.ScheduleDTOProviderForTests;
 import br.com.schedule.providers.ScheduleEntityProviderForTests;
 
-@DisplayName("Classe responsável por testar a classe de Conversão da Entidade Schedule")
 class ConvertScheduleTest implements ConstantsTests {
 
   @ParameterizedTest
   @ArgumentsSource(ScheduleDTOProviderForTests.class)
-  @DisplayName("Deve converter Schedule DTO para uma Entidade Schedule")
   void convertDataTransferObjectToEntity(ScheduleDataTransferObject dto) {
     Recipient recipient = Recipient.newBuilder().recipient(RECIPIENT_EMAIL).build();
     Schedule schedule = ConvertSchedule.toEntity(dto, recipient);
@@ -34,7 +32,6 @@ class ConvertScheduleTest implements ConstantsTests {
 
   @ParameterizedTest
   @ArgumentsSource(ScheduleEntityProviderForTests.class)
-  @DisplayName("Deve converter Entidade Schedule para um ScheduleDTO")
   void convertEntityToDataTransferObject(Schedule schedule) {
     ScheduleDataTransferObject dto = ConvertSchedule.toDataTransferObject(schedule);
 
@@ -47,7 +44,6 @@ class ConvertScheduleTest implements ConstantsTests {
 
   @ParameterizedTest
   @ArgumentsSource(ScheduleDTOProviderForTests.class)
-  @DisplayName("Deve retornar exception, para um recipient que esteja inválido por conter espaçamento")
   void shouldReturnExceptionForRecipientInvalid(ScheduleDataTransferObject dto) {
     dto.getRecipient().setRecipient("a n y t h i n g");
     Exception exception = assertThrows(RecipientInvalidException.class, () -> {
@@ -70,7 +66,6 @@ class ConvertScheduleTest implements ConstantsTests {
 
   @ParameterizedTest
   @ArgumentsSource(ScheduleDTOProviderForTests.class)
-  @DisplayName("Deve setar o tipo da Entidade Schedule como SMS")
   void shouldSetTypeShortMessageServiceInEntitySchedule(ScheduleDataTransferObject dto) {
     dto.getRecipient().setRecipient(RECIPIENT_PHONE);
     dto.setType(Type.SMS.name());
@@ -82,7 +77,6 @@ class ConvertScheduleTest implements ConstantsTests {
 
   @ParameterizedTest
   @ArgumentsSource(ScheduleDTOProviderForTests.class)
-  @DisplayName("Deve setar o tipo da Entidade Schedule como WHATSAPP")
   void shouldSetTypeWhatsappEntitySchedule(ScheduleDataTransferObject dto) {
     dto.getRecipient().setRecipient(RECIPIENT_PHONE);
     dto.setType(Type.WHATSAPP.name());
@@ -94,7 +88,6 @@ class ConvertScheduleTest implements ConstantsTests {
 
   @ParameterizedTest
   @ArgumentsSource(ScheduleDTOProviderForTests.class)
-  @DisplayName("Deve setar o tipo da Entidade Schedule como EMAIL, mesmo quando o DTO informar um tipo diferente")
   void shouldSetTypeEmailInEntityScheduleEvenWhenDTOPassesDifferentType(
       ScheduleDataTransferObject dto) {
     dto.getRecipient().setRecipient(RECIPIENT_EMAIL);

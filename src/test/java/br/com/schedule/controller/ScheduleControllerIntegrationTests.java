@@ -9,7 +9,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +24,6 @@ import br.com.schedule.domain.model.entity.Schedule;
 import br.com.schedule.domain.repository.RecipientRepository;
 import br.com.schedule.domain.repository.ScheduleRepository;
 
-@DisplayName("Classe responsável por efetuar um teste de integração")
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles(ConstantsTests.PROFILE_TEST)
@@ -55,9 +53,6 @@ class ScheduleControllerIntegrationTests {
             + "    \"type\": \"email\"\n" + "}";
   }
 
-  @DisplayName("Deve enviar uma requisição para salvar um Schedule e "
-      + "validar se o status retornado é created, também vai validar "
-      + "se existe um campo Location no header do response")
   @Test
   @Order(1)
   void shouldCreateSchedulingRequest() throws Exception {
@@ -67,7 +62,6 @@ class ScheduleControllerIntegrationTests {
         .andExpect(status().isCreated()).andExpect(header().exists("Location"));
   }
 
-  @DisplayName("Deve buscar o Schedule salvo no primeiro teste e valdiar se os campos contidos no json")
   @Test
   @Order(2)
   void shouldSearchSavedSchedule() throws Exception {
@@ -81,7 +75,6 @@ class ScheduleControllerIntegrationTests {
         .andExpect(status().isOk());
   }
 
-  @DisplayName("Deve buscar o UUID do schedule no banco de dados e enviar o mesmo para deletar logicamente através de uma requisição")
   @Test
   @Order(3)
   void shouldDeleteSchedule() throws Exception {

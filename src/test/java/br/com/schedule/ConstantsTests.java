@@ -14,4 +14,7 @@ public interface ConstantsTests {
   static final Type EMAIL = Type.EMAIL;
 
   static final String PROFILE_TEST = "test";
+
+  static final String RECIPIENT_EMAIL_NOT_VALID = "murilohenrique.tioutlook.com.br";
+  static final String RECIPIENT_PHONE_NOT_VALID = "55 16 99449 6217";
 }

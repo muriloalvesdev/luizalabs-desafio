@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ArgumentsSource;
 import org.mockito.BDDMockito;
@@ -25,7 +24,6 @@ import br.com.schedule.providers.ScheduleEntityProviderForTests;
 import br.com.schedule.service.recipient.RecipientService;
 import br.com.schedule.service.schedule.ScheduleService;
 
-@DisplayName("Classe responsável por testar o ScheduleServiceImpl")
 class ScheduleServiceImplTest implements ConstantsTests {
 
   private ScheduleRepository repository;
@@ -53,7 +51,6 @@ class ScheduleServiceImplTest implements ConstantsTests {
 
   @ParameterizedTest
   @ArgumentsSource(ScheduleEntityProviderForTests.class)
-  @DisplayName("Deve testar o comportamento do método save() do Serviço")
   void shouldSaveSchedule(Schedule schedule) {
     Recipient recipient = Recipient.newBuilder().build();
 
@@ -68,7 +65,6 @@ class ScheduleServiceImplTest implements ConstantsTests {
 
   @ParameterizedTest
   @ArgumentsSource(ScheduleEntityProviderForTests.class)
-  @DisplayName("Deve testar o comportamento do método delete() do Serviço")
   void shouldDeleteLogicallySchedule(Schedule schedule) {
     UUID uuid = UUID.randomUUID();
     BDDMockito.given(this.repository.findByUuidAndStatus(uuid, PENDING))
@@ -83,7 +79,6 @@ class ScheduleServiceImplTest implements ConstantsTests {
 
   @ParameterizedTest
   @ArgumentsSource(ScheduleEntityProviderForTests.class)
-  @DisplayName("Deve testar o comportamento do método save() quando um DTO contém uma data de agendamento invalida")
   void shouldThrowExceptionWithSendDateInvalid(Schedule schedule) throws Exception {
     Recipient recipient = Recipient.newBuilder().build();
 
