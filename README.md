@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/muriloalvesdev/luizalabs-desafio.svg?branch=master)](https://travis-ci.com/muriloalvesdev/luizalabs-desafio)
+
 # Schedule API
 Projeto de agendamento para envio de comunicação. Desenvolvido na Linguagem Java.
 
