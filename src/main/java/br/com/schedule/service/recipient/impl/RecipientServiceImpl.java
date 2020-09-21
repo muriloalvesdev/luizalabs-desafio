@@ -12,16 +12,17 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
 @Service
-class RecipientServiceImpl implements RecipientService {
+class RecipientServiceImpl implements RecipientService<RecipientDataTransferObject> {
 
   final RecipientRepository repository;
 
-  public Recipient save(RecipientDataTransferObject dto) {
-    Optional<Recipient> recipientOptional = repository.findByRecipient(dto.getRecipient());
-    if (recipientOptional.isPresent()) {
-      return recipientOptional.get();
-    }
-    return repository.save(ConvertRecipient.toEntity(dto));
+  public Optional<RecipientDataTransferObject> save(RecipientDataTransferObject dto) {
+    return repository
+        .findByRecipient(dto.getRecipient())
+        .map(entity -> Optional.ofNullable(ConvertRecipient.toDataTransferObject(entity)))
+        .orElse(
+            Optional.ofNullable(
+                ConvertRecipient.toDataTransferObject(
+                    repository.save(ConvertRecipient.toEntity(dto)))));
   }
-
 }

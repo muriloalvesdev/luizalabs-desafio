@@ -10,9 +10,5 @@ import br.com.schedule.domain.model.entity.Schedule;
 import br.com.schedule.domain.model.entity.Status;
 
 public interface ScheduleRepository extends JpaRepository<Schedule, UUID> {
-  Optional<Schedule> findByRecipient(Recipient find);
-
   Optional<Schedule> findByUuidAndStatus(UUID uuid, Status status);
-
-  Page<Schedule> findByStatus(Status status, Pageable pageable);
 }
