@@ -4,7 +4,7 @@
 Projeto de agendamento para envio de comunicação. Desenvolvido na Linguagem Java.
 
 ## License
-[Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0)
+[Apache License 2.0](https://github.com/muriloalvesdev/luizalabs-desafio/blob/master/LICENSE)
 
 
 ## Tecnologias 
