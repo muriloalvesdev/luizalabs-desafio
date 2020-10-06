@@ -3,7 +3,6 @@ package br.com.schedule.service.recipient.impl;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 import br.com.schedule.convert.recipient.ConvertRecipient;
-import br.com.schedule.domain.model.entity.Recipient;
 import br.com.schedule.domain.repository.RecipientRepository;
 import br.com.schedule.dto.RecipientDataTransferObject;
 import br.com.schedule.service.recipient.RecipientService;
