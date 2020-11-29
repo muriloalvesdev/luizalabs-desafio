@@ -13,9 +13,17 @@ addons:
 
 install: true
 
+env:
+ global:
+   - CODECOV_TOKEN="b45511c8-df84-429e-972e-94b2d27df643"
+
 before_install:
   - psql -c 'create database "schedule_labs";' -U postgres
 
 script:
   - chmod +x ./.ci/script.sh 
   - ./.ci/script.sh
+  
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
