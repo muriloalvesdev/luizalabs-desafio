@@ -14,7 +14,6 @@ import org.junit.jupiter.params.provider.ArgumentsSource;
 import org.mockito.BDDMockito;
 import org.mockito.Mockito;
 import br.com.schedule.ConstantsTests;
-import br.com.schedule.domain.model.entity.Recipient;
 import br.com.schedule.domain.model.entity.Schedule;
 import br.com.schedule.domain.repository.ScheduleRepository;
 import br.com.schedule.dto.RecipientDataTransferObject;
@@ -28,8 +27,8 @@ class ScheduleServiceImplTest implements ConstantsTests {
 
   private ScheduleRepository repository;
 
-  private ScheduleService service;
-  private RecipientService recipientService;
+  private ScheduleService<ScheduleDataTransferObject> service;
+  private RecipientService<RecipientDataTransferObject> recipientService;
 
   private ScheduleDataTransferObject scheduleDataTransferObject;
   private RecipientDataTransferObject recipientDataTransferObject;
@@ -52,10 +51,9 @@ class ScheduleServiceImplTest implements ConstantsTests {
   @ParameterizedTest
   @ArgumentsSource(ScheduleEntityProviderForTests.class)
   void shouldSaveSchedule(Schedule schedule) {
-    Recipient recipient = Recipient.newBuilder().build();
-
     BDDMockito.given(this.repository.saveAndFlush(any(Schedule.class))).willReturn(schedule);
-    BDDMockito.given(this.recipientService.save(recipientDataTransferObject)).willReturn(recipient);
+    BDDMockito.given(this.recipientService.save(recipientDataTransferObject))
+        .willReturn(Optional.of(recipientDataTransferObject));
 
     this.service.save(this.scheduleDataTransferObject);
 
@@ -80,10 +78,9 @@ class ScheduleServiceImplTest implements ConstantsTests {
   @ParameterizedTest
   @ArgumentsSource(ScheduleEntityProviderForTests.class)
   void shouldThrowExceptionWithSendDateInvalid(Schedule schedule) throws Exception {
-    Recipient recipient = Recipient.newBuilder().build();
-
     BDDMockito.given(this.repository.saveAndFlush(any(Schedule.class))).willReturn(schedule);
-    BDDMockito.given(this.recipientService.save(recipientDataTransferObject)).willReturn(recipient);
+    BDDMockito.given(this.recipientService.save(recipientDataTransferObject))
+        .willReturn(Optional.of(recipientDataTransferObject));
     scheduleDataTransferObject.setSendDate(LocalDateTime.now());
     Thread.sleep(2000);
     Exception exception = assertThrows(ScheduleDateInvalidException.class, () -> {

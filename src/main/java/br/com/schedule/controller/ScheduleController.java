@@ -1,48 +1,49 @@
 package br.com.schedule.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import br.com.schedule.dto.ScheduleDataTransferObject;
+import br.com.schedule.service.schedule.ScheduleService;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import br.com.schedule.domain.model.entity.Schedule;
-import br.com.schedule.dto.ScheduleDataTransferObject;
-import br.com.schedule.service.schedule.ScheduleService;
+
+import java.util.UUID;
 
 @RequestMapping("api/schedule")
 @RestController
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
 class ScheduleController {
 
-  @Autowired
-  private ScheduleService service;
+  private final ScheduleService<ScheduleDataTransferObject> service;
+  private final String PATH_BY_ID = "/{uuid}";
 
-  @GetMapping(path = "{status}", consumes = MediaType.APPLICATION_JSON_VALUE,
-      produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<Page<ScheduleDataTransferObject>> find(
-      @PathVariable(name = "status") String status, Pageable pageable) {
-    return ResponseEntity.ok(service.find(status, pageable));
+  @GetMapping(path = PATH_BY_ID, produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<ScheduleDataTransferObject> find(@PathVariable String uuid) {
+    return service.find(uuid).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
   }
 
   @PostMapping(path = "/", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Object> save(@Validated @RequestBody ScheduleDataTransferObject dto) {
-    Schedule schedule = service.save(dto);
-    return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentContextPath()
-        .path("/api/schedule/{status}").buildAndExpand(schedule.getStatus().name()).toUri())
-        .body(schedule.getUuid());
+    return service
+        .save(dto)
+        .map(this::getCreatedResponse)
+        .orElse(ResponseEntity.unprocessableEntity().build());
   }
 
-  @DeleteMapping(path = "/{uuid}")
-  public ResponseEntity<Object> delete(@PathVariable(name = "uuid") String uuid) {
-    service.delete(uuid);
-    return ResponseEntity.noContent().build();
+  private ResponseEntity<Object> getCreatedResponse(UUID uuid) {
+    return ResponseEntity.created(
+            ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/api/schedule/{uuid}")
+                .buildAndExpand(uuid)
+                .toUri())
+        .build();
+  }
+
+  @DeleteMapping(path = PATH_BY_ID)
+  public ResponseEntity<ScheduleDataTransferObject> delete(@PathVariable String uuid) {
+    return service.delete(uuid).map(ResponseEntity::ok).orElse(ResponseEntity.noContent().build());
   }
 }
